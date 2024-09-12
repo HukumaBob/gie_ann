@@ -1,7 +1,3 @@
-Sure, here's the translated and formatted plan in Markdown:
-
----
-
 # Plan for Developing a Program to Recognize Gastrointestinal Tract Sections Based on Endoscopic Images
 
 ## Stage 1: Task Definition and Data Collection

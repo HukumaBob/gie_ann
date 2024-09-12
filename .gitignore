@@ -162,4 +162,11 @@ cython_debug/
 #.idea/
 # Ignore all files inside these directories, but keep the directories
 
+dataset/test
+dataset/train
 processing_images/duodenum
+processing_images/esophagus
+processing_images/stomach
+raw_images/duodenum
+raw_images/esophagus
+raw_images/stomach

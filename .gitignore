@@ -161,24 +161,4 @@ cython_debug/
 #  option (not recommended) you can uncomment the following to ignore the entire idea folder.
 #.idea/
 # Ignore all files inside these directories, but keep the directories
-dataset/test/*
-dataset/train/*
-raw_images/duodenum/*
-raw_images/esophagus/*
-raw_images/stomach/*
-processing_images/duodenum/*
-processing_images/esophagus/*
-processing_images/stomach/*
 
-# Allow the directories to be tracked
-!dataset/test/
-!dataset/train/
-!raw_images/duodenum/
-!raw_images/esophagus/
-!raw_images/stomach/
-!processing_images/duodenum/
-!processing_images/esophagus/
-!processing_images/stomach/
-
-# Ignore all files, but not the directories
-*.*

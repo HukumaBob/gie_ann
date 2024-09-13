@@ -1,10 +1,12 @@
+from tqdm import tqdm
 import torch
 import torch.nn as nn
 import torch.optim as optim
 from torchvision import datasets, models, transforms
 from torch.utils.data import DataLoader
 from sklearn.metrics import f1_score
-from tqdm import tqdm
+import matplotlib.pyplot as plt
+import numpy as np
 
 # Directories
 TRAIN_DIR = 'processing_images/train'
@@ -15,6 +17,7 @@ BATCH_SIZE = 32
 NUM_EPOCHS = 10
 LEARNING_RATE = 0.001
 NUM_CLASSES = 3  # Number of target classes
+MODEL_PATH = 'best_model.pth'  # Path to save the best model
 
 # Data transforms (preprocessing and augmentation)
 data_transforms = {
@@ -54,6 +57,16 @@ model = model.to(device)
 criterion = nn.CrossEntropyLoss()
 optimizer = optim.Adam(model.parameters(), lr=LEARNING_RATE)
 
+# Variables to track the best model
+best_model_wts = None
+best_f1 = 0.0
+
+# Store losses and accuracy for plotting
+train_losses = []
+val_losses = []
+train_accuracies = []
+val_accuracies = []
+
 # Training and validation loop
 for epoch in range(NUM_EPOCHS):
     print(f'Epoch {epoch+1}/{NUM_EPOCHS}')
@@ -80,6 +93,8 @@ for epoch in range(NUM_EPOCHS):
     
     epoch_loss = running_loss / len(train_loader)
     epoch_acc = correct.double() / total
+    train_losses.append(epoch_loss)
+    train_accuracies.append(epoch_acc.item())
     print(f'Train Loss: {epoch_loss:.4f}, Accuracy: {epoch_acc:.4f}')
     
     # Validation phase
@@ -108,5 +123,42 @@ for epoch in range(NUM_EPOCHS):
     val_epoch_loss = val_running_loss / len(val_loader)
     val_epoch_acc = val_correct.double() / val_total
     val_f1 = f1_score(val_labels, val_preds, average='weighted')
+    val_losses.append(val_epoch_loss)
+    val_accuracies.append(val_epoch_acc.item())
     
     print(f'Validation Loss: {val_epoch_loss:.4f}, Accuracy: {val_epoch_acc:.4f}, F1-Score: {val_f1:.4f}')
+    
+    # Check if this is the best model so far, and save it
+    if val_f1 > best_f1:
+        best_f1 = val_f1
+        best_model_wts = model.state_dict()
+        torch.save(model.state_dict(), MODEL_PATH)  # Save the best model
+        print(f"Best model saved with F1-Score: {best_f1:.4f}")
+
+# Load the best model weights after training
+if best_model_wts:
+    model.load_state_dict(best_model_wts)
+
+# Plotting loss and accuracy curves
+epochs_range = range(1, NUM_EPOCHS + 1)
+
+plt.figure(figsize=(12, 4))
+# Loss
+plt.subplot(1, 2, 1)
+plt.plot(epochs_range, train_losses, label='Train Loss')
+plt.plot(epochs_range, val_losses, label='Validation Loss')
+plt.xlabel('Epochs')
+plt.ylabel('Loss')
+plt.title('Training and Validation Loss')
+plt.legend()
+
+# Accuracy
+plt.subplot(1, 2, 2)
+plt.plot(epochs_range, train_accuracies, label='Train Accuracy')
+plt.plot(epochs_range, val_accuracies, label='Validation Accuracy')
+plt.xlabel('Epochs')
+plt.ylabel('Accuracy')
+plt.title('Training and Validation Accuracy')
+plt.legend()
+
+plt.show()

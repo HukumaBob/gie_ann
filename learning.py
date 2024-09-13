@@ -6,7 +6,6 @@ from torchvision import datasets, models, transforms
 from torch.utils.data import DataLoader
 from sklearn.metrics import f1_score
 import matplotlib.pyplot as plt
-import numpy as np
 
 # Directories
 TRAIN_DIR = 'processing_images/train'
@@ -18,6 +17,9 @@ NUM_EPOCHS = 10
 LEARNING_RATE = 0.001
 NUM_CLASSES = 3  # Number of target classes
 MODEL_PATH = 'best_model.pth'  # Path to save the best model
+# Constants for normalization (mean and std of ImageNet)
+IMAGENET_MEAN = [0.485, 0.456, 0.406]
+IMAGENET_STD = [0.229, 0.224, 0.225]
 
 # Data transforms (preprocessing and augmentation)
 data_transforms = {
@@ -25,13 +27,13 @@ data_transforms = {
         transforms.RandomResizedCrop(224),
         transforms.RandomHorizontalFlip(),
         transforms.ToTensor(),
-        transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
+        transforms.Normalize(IMAGENET_MEAN, IMAGENET_STD)
     ]),
     'val': transforms.Compose([
         transforms.Resize(256),
         transforms.CenterCrop(224),
         transforms.ToTensor(),
-        transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
+        transforms.Normalize(IMAGENET_MEAN, IMAGENET_STD)
     ])
 }
 

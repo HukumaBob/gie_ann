@@ -4,6 +4,7 @@ import torch.optim as optim
 from torchvision import datasets, models, transforms
 from torch.utils.data import DataLoader
 from sklearn.metrics import f1_score
+from tqdm import tqdm
 
 # Directories
 TRAIN_DIR = 'processing_images/train'
@@ -63,7 +64,7 @@ for epoch in range(NUM_EPOCHS):
     correct = 0
     total = 0
     
-    for inputs, labels in train_loader:
+    for inputs, labels in tqdm(train_loader):
         inputs, labels = inputs.to(device), labels.to(device)
         
         optimizer.zero_grad()

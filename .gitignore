@@ -170,3 +170,9 @@ processing_images/stomach
 raw_images/duodenum
 raw_images/esophagus
 raw_images/stomach
+processing_images/train/stomach
+processing_images/train/esophagus
+processing_images/train/duodenum
+processing_images/val/duodenum
+processing_images/val/esophagus
+processing_images/val/stomach

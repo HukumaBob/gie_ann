@@ -5,6 +5,8 @@ from torch.utils.data import DataLoader
 from sklearn.metrics import confusion_matrix, classification_report
 import seaborn as sns
 import matplotlib.pyplot as plt
+from tqdm import tqdm
+
 
 TEST_DIR = 'processing_images/test'
 BATCH_SIZE = 32
@@ -41,7 +43,7 @@ def test_model(model, test_loader):
     model = model.to(device)    
     
     with torch.no_grad():
-        for inputs, labels in test_loader:
+        for inputs, labels in tqdm(test_loader):
             inputs, labels = inputs.to(device), labels.to(device)
             outputs = model(inputs)
             _, preds = torch.max(outputs, 1)

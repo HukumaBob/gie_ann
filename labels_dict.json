@@ -1,0 +1,28 @@
+[
+    {
+        "anatomy":
+        {
+            "z-line":1,
+            "retroflex-stomach":2,
+            "pylorus":3,
+            "retroflex-rectum":4,
+            "cecum":5,
+            "ileum":6
+        },    
+        "quality":
+        {
+            "good":1,
+            "passably":2,
+            "poor":3
+        },    
+        "pathology":
+        {
+            "normal":0,
+            "barrett":1,
+            "esophagitis-a":2,
+            "esophagitis-b-d":3,
+            "esophagitis-b-d":4
+
+        }
+    }
+]

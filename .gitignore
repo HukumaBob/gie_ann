@@ -176,3 +176,12 @@ processing_images/train/duodenum
 processing_images/val/duodenum
 processing_images/val/esophagus
 processing_images/val/stomach
+data/anatomy
+data/anatomy/cecum
+data/anatomy/ileum
+data/anatomy/pylorus
+data/anatomy/retroflex-rectum
+data/anatomy/retroflex-stomach
+data/anatomy/z-line
+data/pathology
+data/pathology/barrett

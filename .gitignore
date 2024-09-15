@@ -185,3 +185,12 @@ data/anatomy/retroflex-stomach
 data/anatomy/z-line
 data/pathology
 data/pathology/barrett
+data/quality
+data/quality/bbps-0-1
+temp/appendix
+temp/bad
+temp/cecum
+temp/retro-rectum
+temp/colon
+temp/icc
+temp/ileum
